@@ -8,5 +8,5 @@
     <string name="start_pause_button">Start</string>
     <string name="pause">Pause</string>
     <string name="start">Start</string>
-
+    <string name="no_chords">Select chords</string>
 </resources>

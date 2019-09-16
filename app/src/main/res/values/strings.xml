@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">SimonsGuitarApp</string>
+    <string name="chord_text_view">Hello World!</string>
+    <string name="major_chords_check_box">Majors</string>
+    <string name="minor_chords_check_box">Minors</string>
+    <string name="major_7_chords_check_box">Major 7s</string>
+    <string name="minor_7_chords_check_box">Minor 7s</string>
+    <string name="start_pause_button">Start</string>
+    <string name="pause">Pause</string>
+    <string name="start">Start</string>
+
+</resources>

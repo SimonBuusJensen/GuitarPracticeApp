@@ -2,7 +2,6 @@ package com.example.simonsguitarapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -14,8 +13,8 @@ class MainActivity : AppCompatActivity() {
         Paused, Running
     }
 
-    private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 0
+    private lateinit var timer: Timer
+    private val timeBetweenChordShuffleInMillis: Long = 3000
     private var timerState = TimerState.Paused
 
     private var majorChords = setOf<String>("A", "Bb", "B", "C", "C#", "D", "Eb", "E", "F", "F#", "G", "G#")
@@ -24,13 +23,59 @@ class MainActivity : AppCompatActivity() {
     private var dom7MinorChords = setOf<String>("Am7", "Bbm7", "Bm7", "Cm7", "C#m7", "Dm7", "Ebm7", "Em7", "Fm7", "F#m7", "Gm7", "G#m7")
 
     private var allChords = mutableListOf<String>()
+    private lateinit var timerThread : Thread
+
+    fun initializeView() {
+        majorChordsCheckBox.isChecked = true
+        allChords.addAll(majorChords)
+    }
+
+    fun initializeOnCheckBoxListeners() {
+
+        minorChordsCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                allChords.addAll(minorChords)
+            }
+            else {
+                allChords.removeAll(minorChords)
+            }
+        }
+
+        majorChordsCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                allChords.addAll(majorChords)
+            }
+            else {
+                allChords.removeAll(majorChords)
+            }
+        }
+
+        major7ChordsCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                allChords.addAll(dom7MajorChords)
+            }
+            else {
+                allChords.removeAll(dom7MajorChords)
+            }
+        }
+
+        minor7ChordsCheckBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                allChords.addAll(dom7MinorChords)
+            }
+            else {
+                allChords.removeAll(dom7MinorChords)
+            }
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        majorChordsCheckBox.isChecked = true
-        allChords.addAll(majorChords)
+        initializeView()
+        initializeOnCheckBoxListeners()
 
         startPauseButton.setOnClickListener(object: View.OnClickListener {
             override fun onClick(v: View?) {
@@ -40,10 +85,32 @@ class MainActivity : AppCompatActivity() {
                 if (timerState == TimerState.Paused) {
                     startPauseButton.text = getString(R.string.pause)
                     timerState = TimerState.Running
+                    timerThread = object : Thread() {
+
+                        override fun run() {
+                            try {
+                                while (true) {
+                                    Thread.sleep(timeBetweenChordShuffleInMillis)
+                                    runOnUiThread {
+                                        if (allChords.size > 0) {
+                                            chordTextView.text = allChords.random()
+                                        }
+                                        else {
+                                            chordTextView.text = getString(R.string.no_chords)
+                                        }
+                                    }
+                                }
+                            } catch (e: InterruptedException) {
+                            }
+                        }
+                    }
+                    timerThread.start()
+
                 }
                 else {
                     startPauseButton.text = getString(R.string.start)
                     timerState = TimerState.Paused
+                    timerThread.interrupt()
                 }
 
             }

@@ -9,4 +9,5 @@
     <string name="pause">Pause</string>
     <string name="start">Start</string>
     <string name="no_chords">Select which chords to practice</string>
+    <string name="chord_image_view_content_description">Image of chord</string>
 </resources>

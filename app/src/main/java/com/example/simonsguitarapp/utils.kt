@@ -30,5 +30,25 @@ class Utils {
                 "Am7" to R.drawable.am7
             )
         }
+
+        fun createChordStringToChordSoundHashMap(): HashMap<String, Int> {
+            return hashMapOf(
+                "A" to R.raw.a,
+                "B" to R.raw.b,
+                "C" to R.raw.c,
+                "D" to R.raw.d,
+                "E" to R.raw.e,
+                "F" to R.raw.f,
+                "G" to R.raw.g,
+                "Am" to R.raw.am,
+                "Bm" to R.raw.bm,
+                "Cm" to R.raw.cm,
+                "Dm" to R.raw.dm,
+                "Em" to R.raw.em,
+                "Fm" to R.raw.fm,
+                "Gm" to R.raw.gm
+            )
+        }
     }
+
 }

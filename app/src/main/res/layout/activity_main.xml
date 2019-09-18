@@ -64,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="@string/start_pause_button"
-        app:layout_constraintBottom_toTopOf="@+id/majorChordsCheckBox"
+        app:layout_constraintBottom_toTopOf="@+id/practiceTimeSeekBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -72,11 +72,32 @@
         android:id="@+id/chordImageView"
         android:layout_width="214dp"
         android:layout_height="270dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:contentDescription="@string/chord_image_view_content_description"
         app:layout_constraintBottom_toTopOf="@+id/startPauseButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:srcCompat="@tools:sample/avatars[0]" />
+
+    <SeekBar
+        android:id="@+id/practiceTimeSeekBar"
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="8dp"
+        android:max="9"
+        android:progress="1"
+        app:layout_constraintBottom_toTopOf="@+id/major7ChordsCheckBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/seekBarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/practice_seek_bar_init"
+        app:layout_constraintBottom_toTopOf="@+id/major7ChordsCheckBox"
+        app:layout_constraintStart_toEndOf="@+id/practiceTimeSeekBar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
